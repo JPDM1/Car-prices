@@ -1,7 +1,5 @@
 # Respuestas — Práctica Final: Análisis y Modelado de Datos
 
-> Rellena cada pregunta con tu respuesta. Cuando se pida un valor numérico, incluye también una breve explicación de lo que significa.
-
 ---
 
 ## Ejercicio 1 — Análisis Estadístico Descriptivo
@@ -10,19 +8,19 @@
 
 **Descripción y Análisis:**
 
-El análisis descriptivo realizado en `ejercicio1_descriptivo.py` examina el dataset de precios de vehículos (_CarPrice_Assignment.csv_) compuesto incialmente por 205 instancias y 24 atributos. El script genera gráficas individuales por atributo respecto a la variable objetivo `Price`. Se realizaron los siguientes análisis:
+El análisis descriptivo realizado en `ejercicio1_descriptivo.py` examina el dataset de precios de vehículos (_CarPrice_Assignment.csv_) compuesto por 205 *instancias* y 24  *atributos*. El script genera gráficas individuales por atributo respecto a la variable objetivo `Price`. Se realizaron los siguientes pasos:
 
 - Cálculo de correlaciones.
-- Estadística descriptiva (_media_, _skewness_, _curtosis_).
+- Estadística descriptiva (_media_, _skewness_, _curtosis_, _frecuencia_, _moda_).
 - Identificación de atributos con baja correlación.
 
-Preliminarmente se eliminaron las columnas `car_ID` (identificador único sin valor predictivo) y `CarName` (nombre del modelo que no aporta información directa sobre el precio). El dataset resultante contiene 23 atributos, incluyendo variables numéricas (_int64_, _float64_) y categóricas (_str_).
+Inicialmente se eliminaron las columnas `car_ID` (identificador único sin valor predictivo) y `CarName` (nombre del modelo que no aporta información directa sobre el precio). El dataset resultante contiene 23 atributos, incluyendo variables numéricas (_int64_, _float64_) y categóricas (_str_).
 
 El análisis de correlaciones reveló que 10 atributos numéricos tienen correlación menor a 0.70 con `Price`, sugiriendo que podrían ser excluidos en análisis futuros.
 
 ---
 
-**Pregunta 1.1** — ¿De qué fuente proviene el dataset y cuál es la variable objetivo (target)? ¿Por qué tiene sentido hacer regresión sobre ella?
+**Pregunta 1.1** — ¿De qué fuente proviene el dataset y cuál es la variable objetivo (*target*)? ¿Por qué tiene sentido hacer regresión sobre ella?
 
 **Fuente del dataset:** El dataset proviene del archivo `CarPrice_Assignment.csv` ubicado en la carpeta `data/`. Este dataset es público y está en [Kaggle](https://www.kaggle.com/datasets/hellbuoy/car-price-prediction).
 
@@ -31,43 +29,43 @@ El análisis de correlaciones reveló que 10 atributos numéricos tienen correla
 **Por qué tiene sentido hacer regresión sobre Price:**
 
 1. **Variable continua numérica:** Es apropiado para modelos de regresión que predicen valores numéricos.
-2. **Relación con características del vehículo:** El precio de un coche depende de múltiples características técnicas (tamaño del motor, peso, potencia, eficiencia de combustible, tipo de carrocería, etc.), lo cual sugiere que un modelo de regresión puede capturar estas relaciones.
-3. **Interés práctico:** Predecir el precio de coches tiene aplicaciones reales en el mercado automotriz para valoración de coches usados, análisis de mercado y fijación de precios.
-4. **Correlación con múltiples atributos:** El análisis de correlación muestra que varios atributos numéricos tienen correlaciones significativas con Price (algunas >0.70), lo que indica que existe una relación lineal que puede ser modelada con regresión.
+2. **Relación con características del vehículo:** El precio de un coche depende de múltiples características (tamaño del motor, peso, potencia, eficiencia de combustible, tipo de carrocería, etc.), lo cual sugiere que un modelo de regresión puede capturar estas relaciones.
+3. **Interés práctico:** Predecir el precio de coches tiene aplicaciones reales en el mercado del automóvil para valoración de coches usados, análisis de mercado y fijación de precios.
+4. **Correlación con múltiples atributos:** El análisis de correlación muestra que varios atributos numéricos tienen correlaciones significativas con *Price* (algunas >0.70), lo que indica que existe una relación lineal que puede ser modelada con regresión.
 
 ---
 
-**Pregunta 1.2** — ¿Qué distribución tienen las principales variables numéricas y has encontrado outliers? Indica en qué variables y qué has decidido hacer con ellos.
+**Pregunta 1.2** — ¿Qué distribución tienen las principales variables numéricas y has encontrado *outliers*? Indica en qué variables y qué has decidido hacer con ellos.
 
 **Distribución de las principales variables numéricas:**
 
-1. **Enginesize (Tamaño del motor):**
-   - Distribución: Asimetría positiva (skewness ≈ 1.0), con cola hacia la derecha
-   - Media: ≈126.9, Curtosis: ≈1.5
-   - Outliers: Se observan algunos valores extremos en el rango superior (motores >300), que corresponden a vehículos de alto rendimiento
-   - Decisión: No se eliminaron outliers en este análisis descriptivo
+1. **`Enginesize` (Tamaño del motor):**
+   - Distribución: Asimetría positiva (*skewness* $≈ 1.0$), con cola hacia la derecha
+   - *Media*: $≈126.9$, *Curtosis*: $≈1.5$
+   - *Outliers*: Se observan algunos valores extremos en el rango superior (motores >300), que corresponden a vehículos de alto rendimiento
+   - Decisión: No se eliminaron *outliers* en este análisis descriptivo
 
-2. **Curbweight (Peso en vacío):**
+2. **`Curbweight` (Peso en vacío):**
    - Distribución: Aproximadamente normal con leve asimetría positiva
-   - Media: ≈2555.6, Skewness ≈ 0.5, Curtosis ≈ 0.1
-   - Outliers: Algunos valores en el rango superior (pesos >4000) correspondientes a vehículos grandes
-   - Decisión: No se eliminaron outliers en este análisis descriptivo
+   - *Media*: $≈2555.6$, *Skewness*: $≈ 0.5$, *Curtosis*: $≈ 0.1$
+   - *Outliers*: Algunos valores en el rango superior (pesos >4000) correspondientes a vehículos grandes
+   - Decisión: No se eliminaron *outliers* en este análisis descriptivo
 
-3. **Horsepower (Potencia):**
-   - Distribución: Asimetría positiva marcada (skewness ≈ 1.0), cola derecha
-   - Media: ≈104.3, Curtosis ≈ 0.6
-   - Outliers: Valores extremos en el rango superior (>250 hp) correspondientes a vehículos deportivos
-   - Decisión: No se eliminaron outliers en este análisis descriptivo
+3. **`Horsepower` (Potencia):**
+   - Distribución: Asimetría positiva marcada (*skewness* $≈ 1.0$), cola derecha
+   - *Media*: $≈104.3$, *Curtosis*: $≈ 0.6$
+   - *Outliers*: Valores extremos en el rango superior (>250 hp) correspondientes a vehículos deportivos
+   - Decisión: No se eliminaron *outliers* en este análisis descriptivo
 
-4. **Carwidth (Ancho del vehículo):**
+4. **`Carwidth` (Ancho del vehículo):**
    - Distribución: Aproximadamente normal
-   - Media: ≈65.9, Skewness ≈ 0.5
-   - Outliers: Mínimos, algunos valores en extremos
-   - Decisión: No se eliminaron outliers
+   - *Media*: $≈65.9$, *Skewness*: $≈ 0.5$
+   - *Outliers*: Mínimos, algunos valores en extremos
+   - Decisión: No se eliminaron *outliers*
 
-**Decisión general sobre outliers:** No se eliminaron outliers por los siguientes motivos:
+**Decisión general sobre *outliers*:** No se eliminaron *outliers* por los siguientes motivos:
 
-- Los outliers corresponden a coches reales (deportivos, de lujo, SUVs) que son parte natural de la distribución del mercado.
+- Los *outliers* corresponden a coches reales (deportivos, de lujo, SUVs) que son parte natural de la distribución del mercado.
 - Eliminarlos podría sesgar el modelo y perder información sobre segmentos importantes del mercado.
 
 ---
@@ -76,9 +74,9 @@ El análisis de correlaciones reveló que 10 atributos numéricos tienen correla
 
 **Tres variables numéricas con mayor correlación (en valor absoluto) con Price:**
 
-1. **Enginesize:** Correlación ≈ 0.874
-2. **Curbweight:** Correlación ≈ 0.835
-3. **Horsepower:** Correlación ≈ 0.808
+1. **`Enginesize`:** Correlación $≈ 0.874$
+2. **`Curbweight`:** Correlación $≈ 0.835$
+3. **`Horsepower`:** Correlación $≈ 0.808$
 
 **Interpretación:**
 
@@ -88,11 +86,11 @@ El análisis de correlaciones reveló que 10 atributos numéricos tienen correla
 
 ---
 
-**Pregunta 1.4** — ¿Hay valores nulos en el dataset? ¿Qué porcentaje representan y cómo los has tratado?
+**Pregunta 1.4** — ¿Hay valores nulos en el *dataset*? ¿Qué porcentaje representan y cómo los has tratado?
 
-**Valores nulos en el dataset:**
+**Valores nulos en el *dataset*:**
 
-- **Resultado:** No hay valores nulos en ninguna de las 23 columnas del dataset
+- **Resultado:** No hay valores nulos en ninguna de las 23 columnas del *dataset*
 - **Porcentaje:** 0% de valores nulos
 
 **Tratamiento de valores nulos:**
@@ -109,13 +107,13 @@ El análisis de correlaciones reveló que 10 atributos numéricos tienen correla
 
 **Descripción y Análisis del Preprocesamiento:**
 
-El preprocesamiento para la regresión lineal simple consistió en los siguientes pasos:
+El preprocesamiento para la **regresión lineal simple** consistió en los siguientes pasos:
 
 1. **Eliminación de columnas irrelevantes**: Se eliminaron `car_ID` y `CarName`.
 
 2. **Selección del atributo predictor**: Se seleccionó solo a `Enginesize`, ya que este atributo mostró la correlación más alta con `Price` (≈0.87), lo que indica una fuerte relación lineal entre el tamaño del motor y el precio del coche.
 
-3. **Escalado del predictor**: Se aplicó `StandardScaler`. Esta técnica centra los datos en media 0 con desviación estándar 1, lo cual es apropiado para algoritmos de regresión lineal que asumen datos en escalas similares y mejora la estabilidad numérica del modelo.
+3. **Escalado del predictor**: Se aplicó `StandardScaler`. Esta técnica centra los datos en *media* 0 con *desviación estándar* 1, lo cual es apropiado para algoritmos de regresión lineal que asumen datos en escalas similares y mejora la estabilidad numérica del modelo.
 
 4. **División Train-Test**: De acuerdo a las indicaciones del ejercicio. Se dividió el dataset en 80% para entrenamiento (164 muestras) y 20% para prueba (41 muestras) usando `random_state=42`.
 
@@ -131,14 +129,14 @@ El preprocesamiento para la regresión lineal simple consistió en los siguiente
 
 **Coeficientes del modelo:**
 
-- Intercepto (β₀): 13305.12
-- Pendiente (β₁): 6889.35
-- Ecuación: Price = 13305.12 + 6889.35 × Enginesize
+- Intercepto ($\beta_0$): 13305.12
+- Pendiente ($\beta_1$): 6889.35
+- Ecuación: *Price* = 13305.12 + 6889.35 × *Enginesize*
 
 **Evaluación del modelo:**
 El modelo funciona razonablemente bien para ser una regresión lineal simple. El R² de 0.8041 indica que el modelo explica el 80.41% de la variabilidad en el precio usando únicamente el tamaño del motor, lo cual es un resultado sólido considerando la simplicidad del modelo.
 
-No hay evidencia clara de overfitting: las métricas de entrenamiento (R²=0.7507, MAE=2856.77, RMSE=3855.82) y prueba (R²=0.8041, MAE=2748.69, RMSE=3932.61) son similares, con un rendimiento ligeramente mejor en test, lo cual es inusual pero positivo y sugiere que el modelo generaliza bien.
+No hay evidencia clara de overfitting: las métricas de entrenamiento (R²=0.7507, MAE=2856.77, RMSE=3855.82) y prueba (R²=0.8041, MAE=2748.69, RMSE=3932.61) son similares, con un rendimiento ligeramente mejor en *test*, lo cual es inusual pero positivo y sugiere que el modelo generaliza bien.
 
 El atributo más influyente es `Enginesize` con un coeficiente positivo de 6889.35, lo que indica que por cada unidad adicional de tamaño del motor (en la escala estandarizada), el precio aumenta en promedio \$6,889.35. Esto tiene sentido lógico: motores más grandes generalmente implican coches más potentes y costosos.
 
@@ -150,17 +148,17 @@ Sin embargo, el MAE de \$2,748.69 indica que el modelo tiene un error promedio d
 
 La información del Ejercicio 1 fue fundamental para el desarrollo de la regresión lineal simple por las siguientes razones:
 
-1. **Selección del predictor**: El análisis de correlación en el Ejercicio 1 identificó que `Enginesize` tenía la correlación más alta con `Price` (≈0.87), lo que justificó su selección como único predictor para la regresión lineal simple. Sin este análisis, habría sido necesario probar múltiples atributos para encontrar el más adecuado.
+1. **Selección del predictor**: El análisis de correlación en el Ejercicio 1 identificó que `Enginesize` tenía la correlación más alta con `Price` ($≈0.87$), lo que justificó su selección como único predictor para la regresión lineal simple. Sin este análisis, habría sido necesario probar múltiples atributos para encontrar el más adecuado.
 
 2. **Validación de la relación lineal**: Los scatter plots del Ejercicio 1 mostraron una relación lineal clara entre `Enginesize` y `Price`, lo que validó que una regresión lineal simple era apropiada para modelar esta relación.
 
-3. **Identificación de outliers**: Los gráficos del Ejercicio 1 permitieron identificar outliers en `Enginesize` y `Price`. Aunque no se eliminaron en este ejercicio, conocer su presencia ayuda a interpretar por qué el modelo puede tener errores de predicción más altos en ciertos rangos de valores, lo cual se refleja en los residuos.
+3. **Identificación de outliers**: Los gráficos del Ejercicio 1 permitieron identificar outliers en `Enginesize` y `Price`. Aunque no se eliminaron en este ejercicio, conocer su presencia ayuda a interpretar por qué el modelo puede tener errores de predicción más altos en ciertos rangos de valores.
 
 4. **Justificación del preprocesamiento**: El Ejercicio 1 confirmó que no había valores nulos, lo que simplificó el preprocesamiento. También mostró que `Enginesize` tenía una distribución aproximadamente normal, lo que justificó el uso de `StandardScaler` para el escalado del predictor.
 
 5. **Interpretación de resultados**: El conocimiento de las estadísticas descriptivas del Ejercicio 1 (*media*, *skewness*, *curtosis* de `Enginesize`) ayuda a interpretar el coeficiente de la regresión. Por ejemplo, saber que `Enginesize` tiene una media de aproximadamente 130 permite contextualizar el impacto del coeficiente de 6889.35 en términos reales del tamaño del motor.
 
-6. **Comparación con regresión múltiple**: El Ejercicio 1 identificó que otros atributos como `Curbweight` y `Horsepower` también tenían correlaciones altas con `Price`. Esto sugiere que una regresión lineal múltiple podría mejorar el R² actual de 0.8041, proporcionando una dirección clara para mejoras futuras del modelo.
+6. **Comparación con regresión múltiple**: El Ejercicio 1 identificó que otros atributos como `Curbweight` y `Horsepower` también tenían correlaciones altas con `Price`. Esto sugiere que una regresión lineal múltiple podría mejorar el R² actual de 0.8041.
 
 ---
 
@@ -172,7 +170,7 @@ La información del Ejercicio 1 fue fundamental para el desarrollo de la regresi
 
 El Ejercicio 3 implementa una regresión lineal múltiple utilizando únicamente `NumPy`, sin emplear `scikit-learn` para el ajuste del modelo. La implementación utiliza la solución analítica de Mínimos Cuadrados Ordinarios (OLS) para calcular los coeficientes del modelo mediante la fórmula $β = (XᵀX)⁻¹ Xᵀy$.
 
-El script genera datos falsos con semilla fija (*seed=42*), con 200 muestras y 3 features. Los coeficientes reales conocidos son $β₀=5$, $β₁=2$, $β₂=-1$, $β₃=0.5$. Se añade ruido gaussiano ($σ=1.5$) a la variable objetivo para simular datos reales.
+El script genera datos con semilla fija (*seed=42*), con 200 muestras y 3 features. Los coeficientes reales conocidos son $β₀=5$, $β₁=2$, $β₂=-1$, $β₃=0.5$. Se añade ruido gaussiano ($σ=1.5$) a la variable objetivo para simular datos reales.
 
 El preprocesamiento incluye:
 
@@ -188,11 +186,11 @@ El modelo se evalúa con métricas MAE, RMSE y R² sobre el conjunto de test, y 
 - RMSE = 1.4612
 - R² = 0.6897
 
-El R² de 0.6897 indica que el modelo explica aproximadamente el 69% de la variabilidad en los datos de test, lo cual es aceptable considerando que se usaron datos falsos con ruido y que el split no fue aleatorio, lo que puede afectar la representatividad del test set.
+El R² de 0.6897 indica que el modelo explica aproximadamente el 69% de la variabilidad en los datos de *test*, lo cual es aceptable considerando que se usaron datos con ruido y que el split no fue aleatorio, lo que puede afectar la representatividad del *test* set.
 
 ---
 
-**Pregunta 3.1** — Explica en tus propias palabras qué hace la fórmula $β = (XᵀX)⁻¹ Xᵀy$ y por qué es necesario añadir una columna de unos a la matriz $X$.
+**Pregunta 3.1** — Explica en tus propias palabras qué hace la fórmula $β = (XᵀX)⁻¹ Xᵀy$ y por qué es necesario añadir una columna de *unos* a la matriz $X$.
 
 **Explicación de la fórmula $β = (XᵀX)⁻¹ Xᵀy$:**
 
@@ -200,9 +198,9 @@ Esta fórmula es la solución analítica de Mínimos Cuadrados Ordinarios (OLS) 
 
 **Componentes de la fórmula:**
 
-- $XᵀX$: Es el producto matricial entre la transpuesta de la matriz de features X y X misma.
+- $XᵀX$: Es el producto matricial entre la transpuesta de la matriz de *features* X y X misma.
 - $(XᵀX)⁻¹$: Es la inversa de la matriz $XᵀX$.
-- $Xᵀy$: Es el producto entre la transpuesta de X y el vector de valores objetivo y. Esto representa la covarianza entre cada feature y la variable objetivo.
+- $Xᵀy$: Es el producto entre la transpuesta de X y el vector de valores objetivo y. 
 - $(XᵀX)⁻¹ Xᵀy$: Al multiplicar la inversa de $XᵀX$ por $Xᵀy$, se obtiene el vector de coeficientes $β$ que minimiza el error cuadrático medio.
 
 **Por qué es necesario añadir una columna de unos a la matriz $X$:**
@@ -212,7 +210,7 @@ La columna de unos es necesaria para incluir el término independiente o interce
 - El modelo solo podría pasar por el origen (0,0), ya que la ecuación sería $y = β₁x₁ + β₂x₂ + ... + βₙxₙ$
 - Con la columna de unos, la ecuación se convierte en $y = β₀·1 + β₁x₁ + β₂x₂ + ... + βₙxₙ = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ$
 - Esto permite que el modelo tenga un *offset* o desplazamiento vertical, lo cual es crucial para ajustar modelos donde la relación entre $X$ e $y$ no pasa necesariamente por el origen
-- En términos matriciales, añadir la columna de ones hace que el primer coeficiente $β₀$ se multiplique por 1 para todas las observaciones, proporcionando el intercepto
+- En términos matriciales, añadir la columna de *unos* hace que el primer coeficiente $β₀$ se multiplique por 1 para todas las observaciones, proporcionando el intercepto
 
 ---
 
@@ -226,7 +224,7 @@ La columna de unos es necesaria para incluir el término independiente o interce
 | β₃        | 0.5        | 0.43851694     | -0.0615    |
 
 **Análisis de la comparación:**
-Los coeficientes ajustados están muy cercanos a los valores reales, con diferencias pequeñas (todas menores a 0.15 en valor absoluto). Esto demuestra que la implementación de la solución OLS desde cero funciona correctamente. Las pequeñas discrepancias se deben al ruido gaussiano añadido a los datos (σ=1.5) y al hecho de que el modelo se ajusta solo con el conjunto de entrenamiento (80% de los datos), lo que introduce variabilidad en la estimación de los coeficientes.
+Los coeficientes ajustados están muy cercanos a los valores reales, con diferencias pequeñas (todas menores a 0.15 en valor absoluto). Esto demuestra que la implementación de la solución OLS funciona correctamente. Las pequeñas discrepancias se deben al ruido gaussiano añadido a los datos ($σ=1.5$) y al hecho de que el modelo se ajusta solo con el conjunto de entrenamiento (80% de los datos), lo que introduce variabilidad en la estimación de los coeficientes.
 
 ---
 
@@ -259,7 +257,7 @@ El MAE y RMSE están dentro de los rangos esperados, lo que indica que el error 
 - RMSE = 3932.61
 - R² = 0.8041
 
-**Ejercicio 3 (Regresión Lineal Múltiple con datos falsos):**
+**Ejercicio 3 (Regresión Lineal Múltiple con datos):**
 
 - MAE = 1.1665
 - RMSE = 1.4612
@@ -275,7 +273,7 @@ Los resultados **no son comparables** entre sí debido a razones fundamentales:
 
 2. **Diferentes escalas:**
    - Ejercicio 2 trabaja con precios en dólares (rango $≈$5,000-$45,000$)
-   - Ejercicio 3 trabaja con valores falsos en escala estándar (rango mucho menor)
+   - Ejercicio 3 trabaja con valores en escala estándar (rango mucho menor)
 
 3. **Diferentes objetivos:**
    - Ejercicio 2 es una regresión lineal simple (1 predictor) aplicada a un problema real.
@@ -296,7 +294,7 @@ La comparación no tiene sentido porque son ejercicios con propósitos completam
 
 **Descripción y Análisis:**
 
-El Ejercicio 4 realiza un análisis completo de una serie temporal falsa generada con semilla fija (seed=42), cubriendo el periodo del 1 de enero de 2018 al 31 de diciembre de 2023 (2191 observaciones diarias). La serie se genera con componentes conocidos: tendencia lineal creciente, estacionalidad anual, ciclos de largo plazo y ruido gaussiano.
+El Ejercicio 4 realiza un análisis completo de una serie temporal falsa generada con semilla fija (*seed*=$42$), cubriendo el periodo del 1 de enero de 2018 al 31 de diciembre de 2023 (2191 observaciones diarias). La serie se genera con componentes conocidos: tendencia lineal creciente, estacionalidad anual, ciclos de largo plazo y ruido gaussiano.
 
 El análisis incluye:
 
@@ -305,7 +303,7 @@ El análisis incluye:
 3. **Análisis del residuo**: Evaluación de si el residuo se comporta como ruido ideal mediante:
    - Estadísticos descriptivos (*media*, *std*, *asimetría*, *curtosis*)
    - Test de normalidad *Jarque-Bera*
-   - Test de estacionariedad *ADF* (Augmented Dickey-Fuller)
+   - Test de estacionariedad *ADF* (Augmented *Dickey-Fuller*)
    - Gráficos *ACF* y *PACF*
    - Histograma con curva normal superpuesta
 
@@ -347,7 +345,7 @@ La amplitud de aproximadamente $±21$ unidades proviene de la combinación de do
 
 **Pregunta 4.3** — ¿Se aprecian ciclos de largo plazo en la serie? ¿Cómo los diferencias de la tendencia?
 
-**Sí, se aprecian ciclos de largo plazo en la serie.**
+Sí, se aprecian ciclos de largo plazo en la serie.
 
 - **Periodo del ciclo:** Aproximadamente 4 años (1461 días)
 - **Amplitud del ciclo:** Aproximadamente ±8 unidades
@@ -355,9 +353,9 @@ La amplitud de aproximadamente $±21$ unidades proviene de la combinación de do
 **Diferencia con la tendencia:**
 
 - La **tendencia** es un patrón monótono y continuo que muestra la dirección general de la serie a largo plazo (en este caso, creciente de forma lineal). No oscila, solo aumenta o disminuye consistentemente.
-- Los **ciclos de largo plazo** son oscilaciones que se repiten periódicamente pero con periodos mucho más largos que la estacionalidad anual. En este caso, el ciclo de ~4 años produce oscilaciones que van y vienen, subiendo y bajando, superpuestas a la tendencia creciente.
+- Los **ciclos de largo plazo** son oscilaciones que se repiten periódicamente pero con periodos mucho más largos que la estacionalidad anual. En este caso, el ciclo de 4 años produce oscilaciones que van y vienen, subiendo y bajando, superpuestas a la tendencia creciente.
 
-En el gráfico de la serie original, los ciclos de largo plazo se manifiestan como variaciones más suaves y lentas que la estacionalidad anual. Mientras que la estacionalidad produce oscilaciones rápidas (cada año), el ciclo de $4$ años produce oscilaciones más amplias y lentas que se observan como "olas" que cubren varios años.
+En el gráfico de la serie original, los ciclos de largo plazo se manifiestan como variaciones más suaves y lentas que la estacionalidad anual. Mientras que la estacionalidad produce oscilaciones rápidas (cada año), el ciclo de 4 años produce oscilaciones más amplias y lentas que se observan como "olas" que cubren varios años.
 
 La diferencia fundamental es que la tendencia representa la dirección general (monótona), mientras que los ciclos representan oscilaciones periódicas que van y vienen alrededor de esa tendencia.
 
@@ -365,16 +363,16 @@ La diferencia fundamental es que la tendencia representa la dirección general (
 
 **Pregunta 4.4** — ¿El residuo se ajusta a un ruido ideal? Indica la media, la desviación típica y el resultado del test de normalidad (*p-value*) para justificar tu respuesta.
 
-**Sí, el residuo se ajusta muy bien a un ruido ideal.**
+Sí, el residuo se ajusta muy bien a un ruido ideal.
 
 **Estadísticos del residuo:**
 
 - **Media:** 0.127 (muy cercana a 0, ideal para ruido blanco)
-- **Desviación típica (Std):** 3.222 (cercana al valor teórico de 3.5 usado en la generación)
+- **Desviación típica (*Std*):** 3.222 (cercana al valor teórico de 3.5 usado en la generación)
 - **Asimetría:** -0.051 (cercana a 0, indica distribución simétrica)
 - **Curtosis:** -0.061 (cercana a 0, indica distribución similar a normal)
 
-**Test de normalidad Jarque-Bera:**
+**Test de normalidad *Jarque-Bera*:**
 
 - **Estadístico:** 1.101
 - **p-valor:** 0.577
